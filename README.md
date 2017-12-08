@@ -20,6 +20,7 @@ shareData: {
 }
 ```
 控制分享显示
+
 ```
 showShare
 ```
@@ -28,5 +29,18 @@ showShare
 shareCallBack: {
 	platform, // 分享平台
 	status    // 分享状态 '0' 成功
+}
+```
+
+Tips：weexShare要放在根组件最下面 以确保渲染在最上层
+
+```
+shareCallBack (data) {
+	// 分享成功
+	if (data.status === '0') {
+		const platformList = ['微信好友', '微信朋友圈', 'QQ好友', 'QQ空间', '新浪微博', '复制链接']
+		const platform = platformList[data.platform]
+		this.eventGa(weex.config.deviceId, '分享产品库成功', this.el, platform)
+	}
 }
 ```
